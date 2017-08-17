@@ -35,11 +35,11 @@ add_library(${PRJ_NAME} INTERFACE)
 target_compile_definitions(${PRJ_NAME} INTERFACE VERSION_STRING=${PRJ_VERSION})
 
 target_include_directories(${PRJ_NAME} INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>)
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PRJ_NAME}>)
 target_include_directories(${PRJ_NAME} INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include>)
+  $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include/${PRJ_NAME}>)
 target_include_directories(${PRJ_NAME} INTERFACE
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include/${PRJ_NAME}>)
 
 
 attach_compilation_db(TARGET ${PRJ_NAME})
@@ -62,8 +62,8 @@ set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
   "${CMAKE_CURRENT_BINARY_DIR}/include")
 
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/include/${PRJ_CONFIG_HEADER_FILE}.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/include/${PRJ_CONFIG_HEADER_FILE}")
+  "${CMAKE_CURRENT_SOURCE_DIR}/include/${PRJ_NAME}/${PRJ_CONFIG_HEADER_FILE}.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/include/${PRJ_NAME}/${PRJ_CONFIG_HEADER_FILE}")
 
 configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/share/cmake/${PRJ_CMAKE_CONFIG_FILE}.in"
@@ -80,10 +80,10 @@ write_basic_package_version_file(
   "${CMAKE_CURRENT_BINARY_DIR}/share/cmake/${PRJ_NAME_LOWER}-config-version.cmake"
   VERSION ${PRJ_VERSION_SHORT} COMPATIBILITY SameMajorVersion)
 
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/" 
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/${PRJ_NAME}" 
   DESTINATION ${PRJ_INSTALL_INCLUDE_DIR}
   PATTERN "*.in" EXCLUDE)
-install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/include/" 
+install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/include/${PRJ_NAME}" 
   DESTINATION ${PRJ_INSTALL_INCLUDE_DIR})
 install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/share/"
   DESTINATION ${PRJ_INSTALL_SHARE_DIR})
