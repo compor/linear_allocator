@@ -35,11 +35,11 @@ add_library(${PRJ_NAME} INTERFACE)
 target_compile_definitions(${PRJ_NAME} INTERFACE VERSION_STRING=${PRJ_VERSION})
 
 target_include_directories(${PRJ_NAME} INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PRJ_NAME}>)
+  $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/>)
 target_include_directories(${PRJ_NAME} INTERFACE
-  $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include/${PRJ_NAME}>)
+  $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include/>)
 target_include_directories(${PRJ_NAME} INTERFACE
-  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include/${PRJ_NAME}>)
+  $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include/>)
 
 
 set(TESTEE_LIB ${PRJ_NAME})

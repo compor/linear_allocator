@@ -12,4 +12,4 @@ class linear_allocator {};
 
 }  // namespace icsa end
 
-#endif  // ifndef LINEAR_ALLOCATOR_HPP
+#endif  // header
