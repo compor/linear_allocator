@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.2.0)
 
-set(PRJ_NAME "LinearAllocator")
+set(PRJ_NAME "linear_allocator")
 string(TOUPPER ${PRJ_NAME} PRJ_NAME_UPPER)
 string(TOLOWER ${PRJ_NAME} PRJ_NAME_LOWER)
 
@@ -51,7 +51,7 @@ set(CMAKE_INSTALL_MESSAGE "LAZY")
 
 set(PRJ_INSTALL_INCLUDE_DIR "include")
 set(PRJ_INSTALL_SHARE_DIR "share")
-set(PRJ_CONFIG_HEADER_FILE "Config.hpp")
+set(PRJ_CONFIG_HEADER_FILE "config.hpp")
 set(PRJ_CMAKE_CONFIG_FILE "config.cmake")
 set(PRJ_CMAKE_CONFIG_EXTRA_FILE "config-extra.cmake")
 
