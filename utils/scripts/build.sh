@@ -31,7 +31,9 @@ echo "info: install dir: ${INSTALL_DIR}"
 echo ""
 
 
-LINKER_FLAGS="-Wl,-L$(llvm-config --libdir) -lc++ -lc++abi" 
+LINKER_FLAGS="-Wl,-L$(llvm-config --libdir)" 
+LINKER_FLAGS="${LINKER_FLAGS} -Wl,-rpath=$(llvm-config --libdir)" 
+LINKER_FLAGS="${LINKER_FLAGS} -lc++ -lc++abi" 
 
 CC=clang CXX=clang++ \
   cmake \

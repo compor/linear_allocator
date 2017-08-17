@@ -1,0 +1,67 @@
+# cmake file
+
+# requirements
+
+if(PRJ_SKIP_TESTS)
+  message(WARNING "Testing is disabled; skipping unit tests")
+
+  return()
+endif()
+
+
+find_package(GTest)
+
+if(NOT GTEST_FOUND)
+  message(WARNING "Could not find GTest; skipping unit tests")
+
+  return()
+endif()
+
+find_package(Threads REQUIRED)
+
+# configuration
+
+# aggregate unit test targets under a pseudo-target
+add_custom_target(unittests)
+
+set(PRJ_TEST_NAMES "test_${PRJ_NAME}")
+
+foreach(prj_test_name ${PRJ_TEST_NAMES})
+  set(TEST_SOURCES "${prj_test_name}.cpp")
+
+  add_executable(${prj_test_name} ${TEST_SOURCES})
+
+  target_include_directories(${prj_test_name} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+  target_include_directories(${prj_test_name} PUBLIC ${GTEST_INCLUDE_DIRS})
+  target_include_directories(${prj_test_name} PUBLIC 
+    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}/include/${PRJ_NAME}>)
+  target_include_directories(${prj_test_name} PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include/${PRJ_NAME}>)
+
+  target_link_libraries(${prj_test_name} PUBLIC GTest::GTest GTest::Main)  
+
+  set_property(TARGET ${prj_test_name} APPEND_STRING PROPERTY 
+    LINK_FLAGS " -Wl,--warn-unresolved-symbols")
+
+  #target_link_libraries(${prj_test_name} PUBLIC ${GTEST_BOTH_LIBRARIES})  
+  #target_link_libraries(${prj_test_name} PUBLIC ${CMAKE_THREAD_LIBS_INIT})  
+
+  # setup dependency between unit test targets and their production code
+  add_dependencies(${prj_test_name} ${TESTEE_LIB})
+
+  # exclude unit test targets from main build
+  set_target_properties(${prj_test_name} PROPERTIES EXCLUDE_FROM_ALL TRUE)
+
+  add_dependencies(unittests ${prj_test_name})
+
+  get_property(PRJ_UNIT_TESTS_EXE TARGET ${prj_test_name} PROPERTY NAME)
+endforeach()
+
+
+set(PRJ_UNIT_TESTS_SCRIPT "run_unit_tests.sh")
+get_property(PRJ_UNIT_TESTS_TARGET TARGET unittests PROPERTY NAME)
+
+configure_file("${PRJ_UNIT_TESTS_SCRIPT}.in" 
+  "${CMAKE_BINARY_DIR}/${PRJ_UNIT_TESTS_SCRIPT}"
+  @ONLY)
+

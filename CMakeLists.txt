@@ -42,6 +42,11 @@ target_include_directories(${PRJ_NAME} INTERFACE
   $<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include/${PRJ_NAME}>)
 
 
+set(TESTEE_LIB ${PRJ_NAME})
+
+add_subdirectory(unittests)
+
+
 attach_compilation_db(TARGET ${PRJ_NAME})
 
 
