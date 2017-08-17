@@ -8,8 +8,6 @@ string(TOLOWER ${PRJ_NAME} PRJ_NAME_LOWER)
 
 project(${PRJ_NAME} CXX)
 
-enable_testing()
-
 # add project cmake module path
 set(PRJ_CMAKE_MODULE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 list(APPEND CMAKE_MODULE_PATH ${PRJ_CMAKE_MODULE_DIR})
@@ -19,6 +17,10 @@ include(Util)
 
 option(PRJ_SKIP_TESTS "Skip configuring the project tests" OFF)
 option(PRJ_DEBUG "Enable project custom debug output facilities" ON)
+
+if(PRJ_SKIP_TESTS)
+  enable_testing()
+endif()
 
 get_version(VERSION PRJ_VERSION)
 
