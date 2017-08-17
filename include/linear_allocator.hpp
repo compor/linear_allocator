@@ -2,9 +2,14 @@
 //
 //
 
-#ifndef LINEARALLOCATOR_HPP
-#define LINEARALLOCATOR_HPP
+#ifndef LINEAR_ALLOCATOR_HPP
+#define LINEAR_ALLOCATOR_HPP
 
-template <typename T> class LinearAllocator {};
+namespace icsa {
 
-#endif // ifndef LINEARALLOCATOR_HPP
+template <typename T>
+class linear_allocator {};
+
+}  // namespace icsa end
+
+#endif  // ifndef LINEAR_ALLOCATOR_HPP
