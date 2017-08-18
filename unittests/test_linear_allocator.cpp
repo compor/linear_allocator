@@ -21,7 +21,7 @@ class test_linear_allocator : public testing::Test {
 };
 
 TEST_F(test_linear_allocator, foo) {
-  icsa::linear_allocator<int> lalloc;
+  icsa::linear_allocator<int> lalloc(100);
 
   int *t = lalloc.allocate(1);
   *t = 10;

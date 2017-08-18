@@ -5,6 +5,9 @@
 #ifndef LINEAR_ALLOCATOR_HPP
 #define LINEAR_ALLOCATOR_HPP
 
+#include <cstdlib>
+// using std::malloc
+
 #include <memory>
 // using std::addressof
 
@@ -29,7 +32,20 @@
 namespace icsa {
 
 template <typename T>
-class linear_allocator {
+class DefaultStorage {
+ public:
+  DefaultStorage() : m_ptr(nullptr) {}
+  DefaultStorage(const DefaultStorage &other) = default;
+  ~DefaultStorage() = default;
+
+  T *get_storage(void) { return m_ptr; }
+
+ protected:
+  T *m_ptr;
+};
+
+template <typename T, typename Storage = DefaultStorage<T>>
+class linear_allocator : public Storage {
   template <typename U>
   using self_type = linear_allocator;
 
@@ -49,15 +65,22 @@ class linear_allocator {
     using other = self_type<U>;
   };
 
-  linear_allocator() noexcept = default;
-  linear_allocator(const linear_allocator &other) noexcept = default;
+  linear_allocator(const size_type s) noexcept : m_total_size(s) {
+    pointer storage = Storage::get_storage();
+    storage = static_cast<pointer>(std::malloc(m_total_size));
+    return;
+  };
 
-  template <typename U>
-  linear_allocator(const linear_allocator<U> &other) noexcept {};
+  linear_allocator(const linear_allocator &other) noexcept = delete;
 
-  ~linear_allocator() = default;
+  ~linear_allocator() {
+    pointer storage = Storage::get_storage();
+    std::free(storage);
+    return;
+  }
 
   pointer address(reference x) const noexcept { return std::addressof(x); }
+
   const_pointer address(const_reference x) const noexcept {
     return std::addressof(x);
   }
@@ -91,6 +114,12 @@ class linear_allocator {
     p->~U();
     return;
   }
+
+ protected:
+  const size_type m_total_size;
+
+  template <typename U>
+  linear_allocator(const linear_allocator<U> &other) noexcept {};
 };
 
 template <typename T1, typename T2>
