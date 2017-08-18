@@ -20,6 +20,13 @@ class test_linear_allocator : public testing::Test {
  protected:
 };
 
-TEST_F(test_linear_allocator, foo) { EXPECT_TRUE(true); }
+TEST_F(test_linear_allocator, foo) {
+  icsa::linear_allocator<int> lalloc;
 
+  int *t = lalloc.allocate(1);
+  *t = 10;
+  lalloc.deallocate(t, 1);
+
+  EXPECT_TRUE(true);
+}
 }  // namespace anonymous end
