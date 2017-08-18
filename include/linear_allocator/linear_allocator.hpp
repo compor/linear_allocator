@@ -93,6 +93,18 @@ class linear_allocator {
   }
 };
 
+template <typename T1, typename T2>
+bool operator==(const linear_allocator<T1> &lhs,
+                const linear_allocator<T2> &rhs) {
+  return true;
+}
+
+template <typename T1, typename T2>
+bool operator!=(const linear_allocator<T1> &lhs,
+                const linear_allocator<T2> &rhs) {
+  return !(lhs == rhs);
+}
+
 }  // namespace icsa end
 
 #endif  // header
