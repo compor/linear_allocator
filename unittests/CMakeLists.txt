@@ -31,6 +31,11 @@ foreach(prj_test_name ${PRJ_TEST_NAMES})
 
   add_executable(${prj_test_name} ${TEST_SOURCES})
 
+  set_target_properties(${prj_test_name} PROPERTIES 
+    CXX_STANDARD 14
+    CXX_STANDARD_REQUIRED ON
+    CMAKE_CXX_EXTENSIONS OFF)
+
   target_include_directories(${prj_test_name} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
   target_include_directories(${prj_test_name} PUBLIC ${GTEST_INCLUDE_DIRS})
   target_include_directories(${prj_test_name} PUBLIC 
