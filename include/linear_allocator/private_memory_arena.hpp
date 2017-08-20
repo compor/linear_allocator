@@ -20,6 +20,10 @@ namespace icsa {
 
 template <std::size_t N>
 struct private_memory_arena : public memory_arena<N> {
+  using memory_arena<N>::m_base;
+  using memory_arena<N>::m_size;
+  using memory_arena<N>::m_offset;
+
   private_memory_arena() {
     m_base = mmap(NULL, N, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE,
                   -1, 0);
