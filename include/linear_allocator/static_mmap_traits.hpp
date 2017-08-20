@@ -1,8 +1,0 @@
-//
-//
-//
-
-#ifndef LINEAR_ALLOCATOR_STATIC_MMAP_TRAITS
-#define LINEAR_ALLOCATOR_STATIC_MMAP_TRAITS
-
-#endif  // header
