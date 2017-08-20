@@ -5,9 +5,6 @@
 #include "linear_allocator/linear_allocator.hpp"
 #include "linear_allocator/allocator_traits.hpp"
 
-#include <cassert>
-// using assert
-
 #include "gtest/gtest.h"
 // using testing::Test
 

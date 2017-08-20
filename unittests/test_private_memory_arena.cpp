@@ -4,10 +4,11 @@
 
 #include "linear_allocator/private_memory_arena.hpp"
 
-#include <cassert>
-// using assert
+#include <cstdlib>
+// using std::exit
 
 #include <csignal>
+// using SIGSEGV
 
 #include "gtest/gtest.h"
 // using testing::Test
@@ -18,27 +19,42 @@ class test_private_memory_arena : public testing::Test {
  public:
   test_private_memory_arena() {}
 
- protected:
+  template <typename T>
+  void access(T *ptr) {
+    auto k = *ptr;
+    std::exit(0);
+  }
 };
 
+TEST_F(test_private_memory_arena, exact_size_allocation) {
+  using alloc_t = int;
+  icsa::private_memory_arena<sizeof(alloc_t)> pma;
+
+  auto *p1 = pma.allocate(sizeof(alloc_t), alignof(alloc_t));
+  auto *p2 = reinterpret_cast<alloc_t *>(p1);
+
+  EXPECT_EXIT(access(p2), ::testing::ExitedWithCode(0), ".*");
+}
+
 TEST_F(test_private_memory_arena, zero_allocation_segfault) {
-  const std::size_t n = 0;
-  icsa::private_memory_arena<n> pma;
+  icsa::private_memory_arena<0> pma;
+  using alloc_t = int;
 
-  auto *raw = pma.allocate(sizeof(int), alignof(int));
-  auto *ptr = reinterpret_cast<int *>(raw);
+  auto *p1 = pma.allocate(sizeof(alloc_t), alignof(alloc_t));
+  auto *p2 = reinterpret_cast<alloc_t *>(p1);
 
-  EXPECT_EXIT({ int k = *ptr; }, ::testing::KilledBySignal(SIGSEGV), ".*");
+  EXPECT_EXIT(access(p2), ::testing::KilledBySignal(SIGSEGV), ".*");
 }
 
 TEST_F(test_private_memory_arena, allocation_segfault) {
-  const std::size_t n = 1;
-  icsa::private_memory_arena<n> pma;
+  icsa::private_memory_arena<1> pma;
+  using alloc_t = int;
+  static_assert(sizeof(alloc_t) > 1, "sizeof int must be larger than 1");
 
-  auto *raw = pma.allocate(sizeof(int), alignof(int));
-  auto *ptr = reinterpret_cast<int *>(raw);
+  auto *p1 = pma.allocate(sizeof(alloc_t), alignof(int));
+  auto *p2 = reinterpret_cast<alloc_t *>(p1);
 
-  EXPECT_EXIT({ int k = *ptr; }, ::testing::KilledBySignal(SIGSEGV), ".*");
+  EXPECT_EXIT(access(p2), ::testing::KilledBySignal(SIGSEGV), ".*");
 }
 
 }  // namespace anonymous end
