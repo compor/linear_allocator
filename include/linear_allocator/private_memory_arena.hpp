@@ -25,10 +25,12 @@ struct private_memory_arena : public memory_arena<N> {
   using memory_arena<N>::m_offset;
 
   private_memory_arena() {
-    m_base = mmap(NULL, N, PROT_READ | PROT_WRITE, MAP_ANONYMOUS | MAP_PRIVATE,
-                  -1, 0);
+    void *ptr = mmap(NULL, N, PROT_READ | PROT_WRITE,
+                     MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 
-    if (!m_base) throw std::bad_alloc();
+    if (!ptr) throw std::bad_alloc();
+
+    m_base = reinterpret_cast<decltype(m_base)>(ptr);
   }
 
   private_memory_arena(const private_memory_arena &) = delete;
@@ -36,10 +38,10 @@ struct private_memory_arena : public memory_arena<N> {
 
   ~private_memory_arena() { munmap(m_base, m_size); }
 
-  char *allocate(std::size_t n, std::size_t a) {
+  void *allocate(std::size_t n, std::size_t a) {
     if (m_offset + n >= m_size) return nullptr;
 
-    auto *ptr = m_base + offset;
+    void *ptr = m_base + m_offset;
     auto space = m_size - m_offset - 1;
     auto modified_space = space;
 
@@ -53,7 +55,7 @@ struct private_memory_arena : public memory_arena<N> {
     return rptr;
   }
 
-  void deallocate(char *ptr, std::size_t) {}
+  void deallocate(void *ptr, std::size_t) {}
 };
 
 }  // namespace icsa end
