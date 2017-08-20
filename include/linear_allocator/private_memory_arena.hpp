@@ -39,10 +39,10 @@ struct private_memory_arena : public memory_arena<N> {
   ~private_memory_arena() { munmap(m_base, m_size); }
 
   void *allocate(std::size_t n, std::size_t a) {
-    if (m_offset + n >= m_size) return nullptr;
+    if (m_offset + n > m_size) return nullptr;
 
     void *ptr = m_base + m_offset;
-    auto space = m_size - m_offset - 1;
+    auto space = m_size - m_offset;
     auto modified_space = space;
 
     auto *rptr = std::align(a, n, ptr, modified_space);
