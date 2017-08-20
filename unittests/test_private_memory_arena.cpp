@@ -26,14 +26,11 @@ class test_private_memory_arena : public testing::Test {
 
   template <typename T>
   void access(T *ptr) {
+    *ptr = 9876;
     auto k = *ptr;
     std::exit(0);
   }
 };
-
-TEST_F(test_private_memory_arena, zero_allocation_segfault) {
-  ASSERT_THROW({ icsa::private_memory_arena<0> pma; }, std::bad_alloc);
-}
 
 TEST_F(test_private_memory_arena, exact_size_allocation) {
   using alloc_t = int;
