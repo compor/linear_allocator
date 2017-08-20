@@ -10,6 +10,13 @@
 #include <new>
 // using std::bad_alloc
 
+#include <array>
+// using std::array
+
+#include <algorithm>
+// using std::copy
+// using std::equal
+
 #include <csignal>
 // using SIGSEGV
 
@@ -53,21 +60,20 @@ TEST_F(test_private_memory_arena, allocation_segfault) {
   EXPECT_EXIT(access(p2), ::testing::KilledBySignal(SIGSEGV), ".*");
 }
 
-TEST_F(test_private_memory_arena, multiple_allocation_segfault) {
+TEST_F(test_private_memory_arena, multiple_allocation) {
   using alloc_t = int;
-  const std::size_t elements_number = 10;
+  const std::size_t elements_number = 5;
   const std::size_t n = elements_number * sizeof(alloc_t);
-  std::cerr << n << std::endl;
   icsa::private_memory_arena<n> pma;
 
+  std::array<int, n> a{9987, 221, 872, 34, 67};
+
   auto *p1 = pma.allocate(n, alignof(alloc_t));
-  std::cerr << p1 << std::endl;
   auto *p2 = reinterpret_cast<alloc_t *>(p1);
 
-  p2 += elements_number + 10000000;
-  std::cerr << p2 << std::endl;
+  std::copy(a.begin(), a.end(), p2);
 
-  EXPECT_EXIT(access(p2), ::testing::ExitedWithCode(0), ".*");
+  EXPECT_TRUE(std::equal(a.begin(), a.end(), p2));
 }
 
 }  // namespace anonymous end
