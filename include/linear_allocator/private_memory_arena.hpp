@@ -28,7 +28,7 @@ struct private_memory_arena : public memory_arena<N> {
     void *ptr = mmap(NULL, N, PROT_READ | PROT_WRITE,
                      MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 
-    if (!ptr) throw std::bad_alloc();
+    if (ptr == MAP_FAILED) throw std::bad_alloc();
 
     m_base = reinterpret_cast<decltype(m_base)>(ptr);
   }
