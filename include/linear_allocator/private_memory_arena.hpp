@@ -25,6 +25,8 @@ struct private_memory_arena : public memory_arena<N> {
   using memory_arena<N>::m_offset;
 
   private_memory_arena() {
+    static_assert(N > 0, "allocation size must be greater than 0!");
+
     void *ptr = mmap(NULL, N, PROT_READ | PROT_WRITE,
                      MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 
