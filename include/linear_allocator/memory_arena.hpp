@@ -4,9 +4,6 @@
 #include <cstddef>
 // using std::size_t
 
-#include <memory>
-// using std::pointer_traits
-
 namespace icsa {
 
 template <std::size_t N>
