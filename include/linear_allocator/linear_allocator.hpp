@@ -46,12 +46,11 @@ class DefaultStorage {
 
 template <typename T, typename Storage = DefaultStorage<T>>
 class linear_allocator : public Storage {
-  template <typename U>
-  using self_type = linear_allocator;
+  using at = std::allocator_traits<linear_allocator<T>>;
 
  public:
   using value_type = T;
-  using pointer = value_type *;
+  // using pointer = value_type *;
   using const_pointer = const value_type *;
   using reference = value_type &;
   using const_reference = const value_type &;
@@ -62,24 +61,26 @@ class linear_allocator : public Storage {
 
   template <typename U>
   struct rebind {
-    using other = self_type<U>;
+    using other = linear_allocator<U>;
   };
 
   linear_allocator(const size_type s) noexcept : m_total_size(s) {
-    pointer storage = Storage::get_storage();
-    storage = static_cast<pointer>(std::malloc(m_total_size));
+    typename at::pointer storage = Storage::get_storage();
+    storage = static_cast<typename at::pointer>(std::malloc(m_total_size));
     return;
   };
 
   linear_allocator(const linear_allocator &other) noexcept = delete;
 
   ~linear_allocator() {
-    pointer storage = Storage::get_storage();
+    typename at::pointer storage = Storage::get_storage();
     std::free(storage);
     return;
   }
 
-  pointer address(reference x) const noexcept { return std::addressof(x); }
+  typename at::pointer address(reference x) const noexcept {
+    return std::addressof(x);
+  }
 
   const_pointer address(const_reference x) const noexcept {
     return std::addressof(x);
@@ -89,16 +90,16 @@ class linear_allocator : public Storage {
     return std::numeric_limits<size_type>::max() / sizeof(value_type);
   }
 
-  pointer allocate(size_type n, void * = 0) {
+  typename at::pointer allocate(size_type n, void * = 0) {
     if (n > max_size()) throw std::bad_alloc();
 
-    return static_cast<pointer>(
+    return static_cast<typename at::pointer>(
         ::operator new(n * sizeof(value_type), std::nothrow));
   }
 
   // TODO determine if it has noexcept specification
   // no mention in cppreference.com, check standard
-  void deallocate(pointer p, std::size_t n) noexcept {
+  void deallocate(typename at::pointer p, std::size_t n) noexcept {
     ::operator delete(static_cast<void *>(p));
     return;
   }
