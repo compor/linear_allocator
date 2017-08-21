@@ -4,6 +4,8 @@
 
 #include "icsa/memory/private_memory_arena.hpp"
 
+namespace imem = icsa::memory;
+
 #include <cstdlib>
 // using std::exit
 
@@ -41,7 +43,7 @@ class test_private_memory_arena : public testing::Test {
 
 TEST_F(test_private_memory_arena, exact_size_allocation) {
   using alloc_t = int;
-  icsa::private_memory_arena<sizeof(alloc_t)> pma;
+  imem::private_memory_arena<sizeof(alloc_t)> pma;
 
   auto *p1 = pma.allocate(sizeof(alloc_t), alignof(alloc_t));
   auto *p2 = reinterpret_cast<alloc_t *>(p1);
@@ -50,7 +52,7 @@ TEST_F(test_private_memory_arena, exact_size_allocation) {
 }
 
 TEST_F(test_private_memory_arena, allocation_segfault) {
-  icsa::private_memory_arena<1> pma;
+  imem::private_memory_arena<1> pma;
   using alloc_t = int;
   static_assert(sizeof(alloc_t) > 1, "sizeof int must be larger than 1");
 
@@ -64,7 +66,7 @@ TEST_F(test_private_memory_arena, multiple_allocation) {
   using alloc_t = int;
   const std::size_t elements_number = 5;
   const std::size_t n = elements_number * sizeof(alloc_t);
-  icsa::private_memory_arena<n> pma;
+  imem::private_memory_arena<n> pma;
 
   std::array<int, n> a{9987, 221, 872, 34, 67};
 
