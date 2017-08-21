@@ -5,7 +5,7 @@
 #ifndef ICSA_MEMORY_PRIVATE_MEMORY_ARENA_HPP
 #define ICSA_MEMORY_PRIVATE_MEMORY_ARENA_HPP
 
-#include "detail/private_memory_arena_impl.hpp"
+#include "icsa/memory/detail/private_memory_arena_impl.hpp"
 
 namespace icsa {
 namespace memory {

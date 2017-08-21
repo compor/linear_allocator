@@ -5,10 +5,10 @@
 #ifndef ICSA_MEMORY_LINEAR_ALLOCATOR_HPP
 #define ICSA_MEMORY_LINEAR_ALLOCATOR_HPP
 
-#include "propagation_traits.hpp"
+#include "icsa/memory/propagation_traits.hpp"
 // using icsa::memory::propagation_traits
 
-#include "allocation_traits.hpp"
+#include "icsa/memory/allocation_traits.hpp"
 // using icsa::memory::allocation_traits
 
 #include <memory>

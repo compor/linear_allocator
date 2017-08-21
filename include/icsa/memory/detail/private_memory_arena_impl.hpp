@@ -5,7 +5,7 @@
 #ifndef ICSA_MEMORY_PRIVATE_MEMORY_ARENA_IMPL_HPP
 #define ICSA_MEMORY_PRIVATE_MEMORY_ARENA_IMPL_HPP
 
-#include "../memory_arena.hpp"
+#include "icsa/memory/memory_arena.hpp"
 
 #include <cstddef>
 // using std::size_t
