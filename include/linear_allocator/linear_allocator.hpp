@@ -8,8 +8,8 @@
 #include "propagation_traits.hpp"
 // using icsa::propagation_traits
 
-#include "storage_traits.hpp"
-// using icsa::storage_traits
+#include "allocation_traits.hpp"
+// using icsa::allocation_traits
 
 #include <memory>
 // using std::allocator_traits
@@ -20,12 +20,11 @@
 namespace icsa {
 
 template <typename T, typename Storage>
-class linear_allocator : public Storage {
-  using alloc_traits = std::allocator_traits<linear_allocator>;
+struct linear_allocator : public Storage {
+  using allocator_traits = std::allocator_traits<linear_allocator>;
   using prop_traits = propagation_traits<Storage>;
-  using storage_traits = storage_traits<Storage>;
+  using allocation_traits = allocation_traits<Storage>;
 
- public:
   using value_type = T;
 
   using propagate_on_container_copy_assignment =
@@ -34,14 +33,14 @@ class linear_allocator : public Storage {
       prop_traits::propagate_on_container_move_assignment;
   using propagate_on_container_swap = prop_traits::propagate_on_container_swap;
 
-  typename alloc_traits::pointer allocate(typename alloc_traits::size_type n,
-                                          void* = 0) {
-    return storage_traits::allocate(n);
+  typename allocator_traits::pointer allocate(
+      typename allocator_traits::size_type n, void* = 0) {
+    return allocation_traits::allocate(n);
   }
 
-  void deallocate(typename alloc_traits::pointer p,
-                  typename alloc_traits::size_type n) noexcept {
-    storage_traits::deallocate(p, n);
+  void deallocate(typename allocator_traits::pointer p,
+                  typename allocator_traits::size_type n) noexcept {
+    allocation_traits::deallocate(p, n);
   }
 };
 
