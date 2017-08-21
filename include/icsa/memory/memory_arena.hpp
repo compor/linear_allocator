@@ -1,10 +1,11 @@
-#ifndef ICSA_MEMORY_ARENA
-#define ICSA_MEMORY_ARENA
+#ifndef ICSA_MEMORY_ARENA_HPP
+#define ICSA_MEMORY_ARENA_HPP
 
 #include <cstddef>
 // using std::size_t
 
 namespace icsa {
+namespace memory {
 
 template <std::size_t N>
 struct memory_arena {
@@ -16,6 +17,7 @@ struct memory_arena {
   std::size_t m_offset;
 };
 
+}  // namespace memory end
 }  // namespace icsa end
 
 #endif  // header

@@ -2,7 +2,7 @@
 //
 //
 
-#include "linear_allocator/private_memory_arena.hpp"
+#include "icsa/memory/private_memory_arena.hpp"
 
 #include <cstdlib>
 // using std::exit

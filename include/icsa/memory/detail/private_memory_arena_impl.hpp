@@ -2,10 +2,10 @@
 //
 //
 
-#ifndef ICSA_PRIVATE_MEMORY_ARENA
-#define ICSA_PRIVATE_MEMORY_ARENA
+#ifndef ICSA_MEMORY_PRIVATE_MEMORY_ARENA_IMPL_HPP
+#define ICSA_MEMORY_PRIVATE_MEMORY_ARENA_IMPL_HPP
 
-#include "memory_arena.hpp"
+#include "../memory_arena.hpp"
 
 #include <cstddef>
 // using std::size_t
@@ -21,6 +21,7 @@
 // using munmap
 
 namespace icsa {
+namespace memory {
 
 template <std::size_t N>
 struct private_memory_arena : public memory_arena<N> {
@@ -64,6 +65,7 @@ struct private_memory_arena : public memory_arena<N> {
   void deallocate(void *ptr, std::size_t) {}
 };
 
+}  // namespace memory end
 }  // namespace icsa end
 
 #endif  // header

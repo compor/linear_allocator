@@ -2,13 +2,14 @@
 //
 //
 
-#ifndef ICSA_PROPAGATION_TRAITS
-#define ICSA_PROPAGATION_TRAITS
+#ifndef ICSA_MEMORY_PROPAGATION_TRAITS_HPP
+#define ICSA_MEMORY_PROPAGATION_TRAITS_HPP
 
 #include <type_traits>
 // using std::false_type
 
 namespace icsa {
+namespace memory {
 
 template <typename T>
 struct propagation_traits {
@@ -17,6 +18,7 @@ struct propagation_traits {
   using propagate_on_container_swap = std::false_type;
 };
 
+}  // namespace memory end
 }  // namespace icsa end
 
 #endif  // header

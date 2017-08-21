@@ -2,8 +2,8 @@
 //
 //
 
-#ifndef ICSA_ALLOCATION_TRAITS
-#define ICSA_ALLOCATION_TRAITS
+#ifndef ICSA_MEMORY_ALLOCATION_TRAITS
+#define ICSA_MEMORY_ALLOCATION_TRAITS
 
 #include <cstddef>
 // using std::size_t
@@ -12,6 +12,7 @@
 // using std::false_type
 
 namespace icsa {
+namespace memory {
 
 template <typename T>
 struct allocation_traits {
@@ -21,6 +22,7 @@ struct allocation_traits {
   static void allocate(void *p, size_type n) { return; }
 };
 
+}  // namespace memory end
 }  // namespace icsa end
 
 #endif  // header

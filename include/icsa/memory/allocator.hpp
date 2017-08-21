@@ -2,14 +2,14 @@
 //
 //
 
-#ifndef ICSA_LINEAR_ALLOCATOR_HPP
-#define ICSA_LINEAR_ALLOCATOR_HPP
+#ifndef ICSA_MEMORY_LINEAR_ALLOCATOR_HPP
+#define ICSA_MEMORY_LINEAR_ALLOCATOR_HPP
 
 #include "propagation_traits.hpp"
-// using icsa::propagation_traits
+// using icsa::memory::propagation_traits
 
 #include "allocation_traits.hpp"
-// using icsa::allocation_traits
+// using icsa::memory::allocation_traits
 
 #include <memory>
 // using std::allocator_traits
@@ -18,12 +18,13 @@
 // using std::size_t
 
 namespace icsa {
+namespace memory {
 
 template <typename T, typename Storage>
-struct linear_allocator : public Storage {
-  using allocator_traits = std::allocator_traits<linear_allocator>;
-  using prop_traits = propagation_traits<Storage>;
+struct allocator : public Storage {
   using allocation_traits = allocation_traits<Storage>;
+  using allocator_traits = std::allocator_traits<allocator>;
+  using prop_traits = propagation_traits<Storage>;
 
   using value_type = T;
 
@@ -46,17 +47,18 @@ struct linear_allocator : public Storage {
 };
 
 // template <typename T1, typename T2>
-// bool operator==(const linear_allocator<T1> &lhs,
-// const linear_allocator<T2> &rhs) {
+// bool operator==(const allocator<T1> &lhs,
+// const allocator<T2> &rhs) {
 // return true;
 //}
 
 // template <typename T1, typename T2>
-// bool operator!=(const linear_allocator<T1> &lhs,
-// const linear_allocator<T2> &rhs) {
+// bool operator!=(const allocator<T1> &lhs,
+// const allocator<T2> &rhs) {
 // return !(lhs == rhs);
 //}
 
+}  // namespace memory end
 }  // namespace icsa end
 
 #endif  // header
