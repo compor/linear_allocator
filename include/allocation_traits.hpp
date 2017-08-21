@@ -11,18 +11,14 @@
 #include <type_traits>
 // using std::false_type
 
-#include <memory>
-// using std::pointer_traits
-
 namespace icsa {
 
 template <typename T>
 struct allocation_traits {
-  using pointer = typename std::pointer_traits<T>::pointer;
   using size_type = std::size_t;
 
-  static pointer allocate(size_type n) { return nullptr; }
-  static void allocate(pointer p, size_type n) { return; }
+  static void *allocate(size_type n) { return nullptr; }
+  static void allocate(void *p, size_type n) { return; }
 };
 
 }  // namespace icsa end
