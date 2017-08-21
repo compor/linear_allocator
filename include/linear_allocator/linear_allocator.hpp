@@ -28,10 +28,11 @@ struct linear_allocator : public Storage {
   using value_type = T;
 
   using propagate_on_container_copy_assignment =
-      prop_traits::propagate_on_container_copy_assignment;
+      typename prop_traits::propagate_on_container_copy_assignment;
   using propagate_on_container_move_assignment =
-      prop_traits::propagate_on_container_move_assignment;
-  using propagate_on_container_swap = prop_traits::propagate_on_container_swap;
+      typename prop_traits::propagate_on_container_move_assignment;
+  using propagate_on_container_swap =
+      typename prop_traits::propagate_on_container_swap;
 
   typename allocator_traits::pointer allocate(
       typename allocator_traits::size_type n, void* = 0) {
