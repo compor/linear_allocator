@@ -5,6 +5,8 @@
 #ifndef ICSA_MEMORY_ALLOCATION_TRAITS
 #define ICSA_MEMORY_ALLOCATION_TRAITS
 
+#include "icsa/memory/memory_fwd.hpp"
+
 #include <cstddef>
 // using std::size_t
 

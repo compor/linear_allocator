@@ -5,6 +5,8 @@
 #ifndef ICSA_MEMORY_PROPAGATION_TRAITS_HPP
 #define ICSA_MEMORY_PROPAGATION_TRAITS_HPP
 
+#include "icsa/memory/memory_fwd.hpp"
+
 #include <type_traits>
 // using std::false_type
 

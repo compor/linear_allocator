@@ -1,6 +1,8 @@
 #ifndef ICSA_MEMORY_ARENA_HPP
 #define ICSA_MEMORY_ARENA_HPP
 
+#include "icsa/memory/memory_fwd.hpp"
+
 #include <cstddef>
 // using std::size_t
 
