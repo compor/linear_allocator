@@ -46,9 +46,9 @@ struct private_memory_arena_impl : public memory_arena<N> {
   private_memory_arena_impl &operator=(const private_memory_arena_impl &) =
       delete;
 
-  ~private_memory_arena_impl() { munmap(m_base, m_size); }
+  ~private_memory_arena_impl() noexcept { munmap(m_base, m_size); }
 
-  void *allocate(std::size_t n, std::size_t a) {
+  void *allocate(std::size_t n, std::size_t a) noexcept {
     if (m_offset + n > m_size) return nullptr;
 
     void *ptr = m_base + m_offset;
@@ -65,7 +65,7 @@ struct private_memory_arena_impl : public memory_arena<N> {
     return rptr;
   }
 
-  void deallocate(void *ptr, std::size_t) {}
+  void deallocate(void *ptr, std::size_t) noexcept {}
 };
 
 }  // namespace detail end
