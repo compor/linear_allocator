@@ -38,7 +38,7 @@ struct allocator : public Storage {
       typename prop_traits::propagate_on_container_swap;
 
   typename allocator_traits::pointer allocate(
-      typename allocator_traits::size_type n, void* = 0) {
+      typename allocator_traits::size_type n, void * = 0) {
     return allocation_traits::allocate(n);
   }
 
@@ -48,17 +48,31 @@ struct allocator : public Storage {
   }
 };
 
-// template <typename T1, typename T2>
-// bool operator==(const allocator<T1> &lhs,
-// const allocator<T2> &rhs) {
-// return true;
-//}
+// comparison between any two allocators
 
-// template <typename T1, typename T2>
-// bool operator!=(const allocator<T1> &lhs,
-// const allocator<T2> &rhs) {
-// return !(lhs == rhs);
-//}
+template <typename T, typename StorageT, typename U, typename StorageU>
+bool operator==(const allocator<T, StorageT> &lhs,
+                const allocator<U StorageU> &rhs) {
+  return false;
+}
+
+template <typename T, typename StorageT, typename U, typename StorageU>
+bool operator!=(const allocator<T, StorageT> &lhs,
+                const allocator<U, StorageU> &rhs) {
+  return !(lhs == rhs);
+}
+
+// comparison between an allocator and anything else
+
+template <typename T, typename StorageT, typename Other>
+bool operator==(const allocator<T, StorageT> &lhs, const Other &rhs) {
+  return false;
+}
+
+template <typename T, typename StorageT, typename Other>
+bool operator!= =(const allocator<T, StorageT> &lhs, const Other &rhs) {
+  return !(lhs == rhs);
+}
 
 }  // namespace memory end
 }  // namespace icsa end
