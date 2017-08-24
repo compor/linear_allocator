@@ -24,6 +24,8 @@ find_package(Threads REQUIRED)
 # aggregate unit test targets under a pseudo-target
 add_custom_target(unittests)
 
+set(PRJ_UNIT_TEST_BINS "")
+
 list(APPEND PRJ_TEST_NAMES "test_linear_allocator")
 list(APPEND PRJ_TEST_NAMES "test_private_memory_arena")
 
@@ -57,9 +59,11 @@ foreach(prj_test_name ${PRJ_TEST_NAMES})
 
   add_dependencies(unittests ${prj_test_name})
 
-  get_property(PRJ_UNIT_TESTS_EXE TARGET ${prj_test_name} PROPERTY NAME)
+  get_property(PRJ_UNIT_TEST_BIN TARGET ${prj_test_name} PROPERTY NAME)
+  set(PRJ_UNIT_TEST_BINS "./${PRJ_UNIT_TEST_BIN} && ${PRJ_UNIT_TEST_BINS}")
 endforeach()
 
+set(PRJ_UNIT_TEST_BINS "${PRJ_UNIT_TEST_BINS} true")
 
 set(PRJ_UNIT_TESTS_SCRIPT "run_unit_tests.sh")
 get_property(PRJ_UNIT_TESTS_TARGET TARGET unittests PROPERTY NAME)

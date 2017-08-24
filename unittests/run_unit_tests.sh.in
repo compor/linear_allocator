@@ -7,5 +7,9 @@ RC=$?
 
 [ "${RC}" -ne 0 ] && exit ${RC}
 
-./unittests/@PRJ_UNIT_TESTS_EXE@
+pushd ./unittests/
+
+@PRJ_UNIT_TEST_BINS@
+
+popd
 
