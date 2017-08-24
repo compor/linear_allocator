@@ -54,6 +54,7 @@ struct allocator {
   template <typename U, typename S>
   allocator(const allocator<U, S> &other) noexcept : storage(other.storage) {}
 
+  // TODO maybe we can provide this using a reference wrapper
   allocator &operator=(const allocator &rhs) = delete;
 
   pointer allocate(size_type n, void * = 0) {
