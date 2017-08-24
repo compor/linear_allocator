@@ -51,8 +51,8 @@ struct allocator {
 
   allocator(const allocator &other) noexcept : storage(other.storage) {}
 
-  template <typename U>
-  allocator(allocator<U, Storage> &other) noexcept : storage(other.storage) {}
+  template <typename U, typename S>
+  allocator(const allocator<U, S> &other) noexcept : storage(other.storage) {}
 
   allocator &operator=(const allocator &rhs) = delete;
 
