@@ -5,8 +5,14 @@
 #include "gtest/gtest.h"
 // using testing::Test
 
-#include <iostream>
-// using std::cout
+#include <array>
+// using std::array
+
+#include <vector>
+// using std::vector
+
+#include <algorithm>
+// using std::equal
 
 #include "icsa/memory/linear_allocator.hpp"
 
@@ -21,22 +27,20 @@ class test_linear_allocator : public testing::Test {
  protected:
 };
 
-TEST_F(test_linear_allocator, foo) {
+TEST_F(test_linear_allocator, vector_allocation) {
   using alloc_t = int;
-  using lpa_t = icsa::memory::linear_private_allocator<alloc_t, 100>;
+
+  std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
+
+  using lpa_t = icsa::memory::linear_private_allocator<alloc_t, 150>;
+
   lpa_t::storage_type s;
-
   lpa_t lpa{s};
+  std::vector<alloc_t, lpa_t> dst{lpa};
 
-  std::vector<alloc_t, lpa_t> v{lpa};
+  for (const auto &e : src) dst.push_back(e);
 
-  v.push_back(1);
-  v.push_back(99);
-  v.push_back(5);
-  v.push_back(32);
-
-  for (const auto &e : v) std::cout << e << std::endl;
-
-  EXPECT_TRUE(true);
+  EXPECT_TRUE(std::equal(src.begin(), src.end(), dst.begin()));
 }
+
 }  // namespace anonymous end
