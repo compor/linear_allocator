@@ -57,10 +57,13 @@ struct allocator {
   allocator &operator=(const allocator &rhs) = delete;
 
   pointer allocate(size_type n, void * = 0) {
-    return static_cast<pointer>(storage.allocate(n, alignof(T)));
+    return static_cast<pointer>(
+        allocation_traits::allocate(storage, n, alignof(T)));
   }
 
-  void deallocate(pointer p, size_type n) noexcept { storage.deallocate(p, n); }
+  void deallocate(pointer p, size_type n) noexcept {
+    allocation_traits::deallocate(storage, p, n);
+  }
 
  protected:
   storage_type &storage;
