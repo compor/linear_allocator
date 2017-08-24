@@ -20,8 +20,8 @@ template <typename T>
 struct allocation_traits {
   using size_type = std::size_t;
 
-  static void *allocate(size_type n) { return nullptr; }
-  static void allocate(void *p, size_type n) { return; }
+  static void *allocate(size_type n, std::size_t a) { return nullptr; }
+  static void deallocate(void *p, size_type n) { return; }
 };
 
 }  // namespace memory end

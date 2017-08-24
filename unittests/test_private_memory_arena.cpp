@@ -2,9 +2,8 @@
 //
 //
 
-#include "icsa/memory/private_memory_arena.hpp"
-
-namespace imem = icsa::memory;
+#include "gtest/gtest.h"
+// using testing::Test
 
 #include <cstdlib>
 // using std::exit
@@ -22,10 +21,9 @@ namespace imem = icsa::memory;
 #include <csignal>
 // using SIGSEGV
 
-#include "gtest/gtest.h"
-// using testing::Test
+#include "icsa/memory/private_memory_arena.hpp"
 
-#include <iostream>
+namespace imem = icsa::memory;
 
 namespace {
 
