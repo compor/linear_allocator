@@ -90,4 +90,31 @@ TEST_F(test_linear_allocator, vector_allocation_multi_use) {
   EXPECT_TRUE(cmp1 && cmp2 && cmp3);
 }
 
+TEST_F(test_linear_allocator,
+       vector_allocation_multi_use_different_allocators) {
+  using alloc_t = int;
+
+  std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
+
+  using lpa_t = imem::linear_private_allocator<alloc_t, 300>;
+
+  lpa_t::storage_type s;
+  lpa_t lpa1{s};
+  lpa_t lpa2{s};
+  std::vector<alloc_t, lpa_t> dst1{lpa1};
+  std::vector<alloc_t, lpa_t> dst2{lpa2};
+
+  for (const auto &e : src) dst1.push_back(e);
+
+  for (auto it = src.rbegin(), ei = src.rend(); it != ei; ++it)
+    dst2.push_back(*it);
+
+  dst1 = dst2;
+
+  auto cmp1 = std::equal(src.rbegin(), src.rend(), dst1.begin());
+  auto cmp2 = std::equal(dst1.begin(), dst1.end(), dst2.begin());
+
+  EXPECT_TRUE(cmp1 && cmp2);
+}
+
 }  // namespace anonymous end
