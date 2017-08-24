@@ -58,7 +58,7 @@ struct allocator {
 
   pointer allocate(size_type n, void * = 0) {
     return static_cast<pointer>(
-        allocation_traits::allocate(storage, n, alignof(T)));
+        allocation_traits::allocate(storage, n * sizeof(T), alignof(T)));
   }
 
   void deallocate(pointer p, size_type n) noexcept {
