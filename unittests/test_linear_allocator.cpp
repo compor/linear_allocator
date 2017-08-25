@@ -160,4 +160,38 @@ TEST_F(test_linear_allocator,
   EXPECT_TRUE(cmp1);
 }
 
+// use of different allocator objects of different type and using the same
+// underlying storage during a container move
+
+// clang-format off
+//TEST_F(
+    //test_linear_allocator,
+    //vector_allocation_different_allocator_objects_different_type_during_move) {
+  //using alloc_t = int;
+
+  //std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
+
+  //using lpa1_t = imem::linear_private_allocator<alloc_t, 300>;
+  //using lpa2_t = imem::linear_private_allocator<alloc_t, 400>;
+
+  //lpa1_t::storage_type s1;
+  //lpa1_t lpa1{s1};
+  //lpa2_t::storage_type s2;
+  //lpa2_t lpa2{s2};
+  //std::vector<alloc_t, lpa1_t> dst1{lpa1};
+  //std::vector<alloc_t, lpa2_t> dst2{lpa2};
+
+  //for (const auto &e : src) dst1.push_back(e);
+
+  //for (auto it = src.rbegin(), ei = src.rend(); it != ei; ++it)
+    //dst2.push_back(*it);
+
+  //dst1 = std::move(dst2);
+
+  //auto cmp1 = std::equal(src.rbegin(), src.rend(), dst1.begin());
+
+  //EXPECT_TRUE(cmp1);
+//}
+// clang-format on
+
 }  // namespace anonymous end
