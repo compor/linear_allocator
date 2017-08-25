@@ -31,9 +31,9 @@ namespace imem = icsa::memory;
 
 namespace {
 
-class test_linear_private_allocatro : public testing::Test {
+class test_linear_allocator : public testing::Test {
  public:
-  test_linear_private_allocatro() {}
+  test_linear_allocator() {}
 
  protected:
 };
@@ -42,7 +42,7 @@ class test_linear_private_allocatro : public testing::Test {
 
 // vector<T> currently uses an allocator to allocate nodes of sizeof(T)
 
-TEST_F(test_linear_private_allocatro, vector_allocation_basic) {
+TEST_F(test_linear_allocator, vector_allocation_basic) {
   using alloc_t = int;
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
@@ -61,7 +61,7 @@ TEST_F(test_linear_private_allocatro, vector_allocation_basic) {
 // list<T> currently uses an allocator to allocate nodes of
 // sizeof(list::node<T>)
 
-TEST_F(test_linear_private_allocatro, list_allocation_basic) {
+TEST_F(test_linear_allocator, list_allocation_basic) {
   using alloc_t = int;
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
@@ -81,7 +81,7 @@ TEST_F(test_linear_private_allocatro, list_allocation_basic) {
 // misaligned with initial allocation of less strict type than the one used in
 // the container
 
-TEST_F(test_linear_private_allocatro, vector_allocation_misalignment) {
+TEST_F(test_linear_allocator, vector_allocation_misalignment) {
   using alloc_t = int;
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
@@ -113,7 +113,7 @@ TEST_F(test_linear_private_allocatro, vector_allocation_misalignment) {
 // use of different allocator objects but of same type and using the same
 // underlying storage
 
-TEST_F(test_linear_private_allocatro,
+TEST_F(test_linear_allocator,
        vector_allocation_different_allocator_objects_same_storage) {
   using alloc_t = int;
 
@@ -142,7 +142,7 @@ TEST_F(test_linear_private_allocatro,
 // use of different allocator objects but of same type and using the same
 // underlying storage during a container copy
 
-TEST_F(test_linear_private_allocatro,
+TEST_F(test_linear_allocator,
        vector_allocation_different_allocator_objects_during_copy) {
   using alloc_t = int;
 
@@ -172,7 +172,7 @@ TEST_F(test_linear_private_allocatro,
 // use of different allocator objects but of same type and using the same
 // underlying storage during a container move
 
-TEST_F(test_linear_private_allocatro,
+TEST_F(test_linear_allocator,
        vector_allocation_different_allocator_objects_during_move) {
   using alloc_t = int;
 
@@ -203,7 +203,7 @@ TEST_F(test_linear_private_allocatro,
 
 // clang-format off
 //TEST_F(
-    //test_linear_private_allocatro,
+    //test_linear_allocator,
     //vector_allocation_different_allocator_objects_different_type_during_move) {
   //using alloc_t = int;
 
