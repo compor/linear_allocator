@@ -33,7 +33,11 @@ class test_linear_allocator : public testing::Test {
  protected:
 };
 
-TEST_F(test_linear_allocator, vector_allocation_use) {
+// basic usage of allocator
+
+// vector<T> currently uses an allocator to allocate nodes of sizeof(T)
+
+TEST_F(test_linear_allocator, vector_allocation_basic) {
   using alloc_t = int;
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
@@ -49,7 +53,10 @@ TEST_F(test_linear_allocator, vector_allocation_use) {
   EXPECT_TRUE(std::equal(src.begin(), src.end(), dst.begin()));
 }
 
-TEST_F(test_linear_allocator, list_allocation_use) {
+// list<T> currently uses an allocator to allocate nodes of
+// sizeof(list::node<T>)
+
+TEST_F(test_linear_allocator, list_allocation_basic) {
   using alloc_t = int;
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
@@ -65,8 +72,11 @@ TEST_F(test_linear_allocator, list_allocation_use) {
   EXPECT_TRUE(std::equal(src.begin(), src.end(), dst.begin()));
 }
 
+// use of different allocator objects but of same type and using the same
+// underlying storage
+
 TEST_F(test_linear_allocator,
-       vector_allocation_use_different_allocators_same_storage) {
+       vector_allocation_different_allocator_objects_same_storage) {
   using alloc_t = int;
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
@@ -91,8 +101,11 @@ TEST_F(test_linear_allocator,
   EXPECT_TRUE(cmp1 && cmp2 && cmp3);
 }
 
+// use of different allocator objects but of same type and using the same
+// underlying storage during a container copy
+
 TEST_F(test_linear_allocator,
-       vector_allocation_use_different_allocators_during_copy) {
+       vector_allocation_different_allocator_objects_during_copy) {
   using alloc_t = int;
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
@@ -118,13 +131,16 @@ TEST_F(test_linear_allocator,
   EXPECT_TRUE(cmp1 && cmp2);
 }
 
+// use of different allocator objects but of same type and using the same
+// underlying storage during a container move
+
 TEST_F(test_linear_allocator,
-       vector_allocation_use_different_allocators_during_move) {
+       vector_allocation_different_allocator_objects_during_move) {
   using alloc_t = int;
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 800>;
+  using lpa_t = imem::linear_private_allocator<alloc_t, 300>;
 
   lpa_t::storage_type s;
   lpa_t lpa1{s};
