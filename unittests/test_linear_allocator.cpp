@@ -2,6 +2,8 @@
 //
 //
 
+#include <iostream>
+
 #include "gtest/gtest.h"
 // using testing::Test
 
@@ -19,6 +21,9 @@
 
 #include <memory>
 // using std::addressof
+
+#include <cstdint>
+// using std::uintptr_t
 
 #include "icsa/memory/linear_allocator.hpp"
 
@@ -70,6 +75,39 @@ TEST_F(test_linear_allocator, list_allocation_basic) {
   for (const auto &e : src) dst.push_back(e);
 
   EXPECT_TRUE(std::equal(src.begin(), src.end(), dst.begin()));
+}
+
+// check proper alignment from allocator usage when storage is manually
+// misaligned with initial allocation of less strict type than the one used in
+// the container
+
+TEST_F(test_linear_allocator, vector_allocation_misalignment) {
+  using alloc_t = int;
+
+  std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
+
+  using lpa_t = imem::linear_private_allocator<alloc_t, 450>;
+
+  lpa_t::storage_type s;
+
+  auto *sptr =
+      imem::allocation_traits<decltype(s)>::allocate(s, 1, alignof(char));
+  auto *ptr = reinterpret_cast<char *>(sptr) + 1;
+  auto ptrval = reinterpret_cast<std::uintptr_t>(ptr);
+  auto mod1 = ptrval % alignof(alloc_t);
+
+  lpa_t lpa{s};
+  std::vector<alloc_t, lpa_t> dst{lpa};
+
+  for (const auto &e : src) dst.push_back(e);
+
+  auto *p2 = std::addressof(dst[0]);
+  auto ptrval2 = reinterpret_cast<std::uintptr_t>(p2);
+  auto mod2 = ptrval2 % alignof(alloc_t);
+
+  imem::allocation_traits<decltype(s)>::deallocate(s, sptr, 1);
+
+  EXPECT_TRUE(mod1 && !mod2);
 }
 
 // use of different allocator objects but of same type and using the same
