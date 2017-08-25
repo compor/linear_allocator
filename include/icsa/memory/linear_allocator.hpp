@@ -20,15 +20,15 @@ namespace memory {
 template <typename T, std::size_t N>
 using linear_private_allocator = allocator<T, private_memory_arena<N>>;
 
-template <typename T, typename U, std::size_t NT, std::size_t NU>
-bool operator==(const linear_private_allocator<T, NT> &lhs,
-                const linear_private_allocator<U, NU> &rhs) {
-  return true;
+template <typename T, typename U, std::size_t N>
+bool operator==(const linear_private_allocator<T, N> &lhs,
+                const linear_private_allocator<U, N> &rhs) {
+  return false;
 }
 
-template <typename T, typename U, std::size_t NT, std::size_t NU>
-bool operator!=(const linear_private_allocator<T, NT> &lhs,
-                const linear_private_allocator<U, NU> &rhs) {
+template <typename T, typename U, std::size_t N>
+bool operator!=(const linear_private_allocator<T, N> &lhs,
+                const linear_private_allocator<U, N> &rhs) {
   return !(lhs == rhs);
 }
 
