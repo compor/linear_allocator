@@ -26,8 +26,9 @@ add_custom_target(unittests)
 
 set(PRJ_UNIT_TEST_BINS "")
 
-list(APPEND PRJ_TEST_NAMES "test_linear_private_allocator")
 list(APPEND PRJ_TEST_NAMES "test_private_memory_arena")
+list(APPEND PRJ_TEST_NAMES "test_linear_private_allocator")
+list(APPEND PRJ_TEST_NAMES "test_linear_shared_allocator")
 
 foreach(prj_test_name ${PRJ_TEST_NAMES})
   set(TEST_SOURCES "${prj_test_name}.cpp")

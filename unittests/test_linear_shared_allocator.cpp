@@ -47,7 +47,7 @@ TEST_F(test_linear_shared_allocator, vector_allocation_basic) {
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 150>;
+  using lpa_t = imem::linear_shared_allocator<alloc_t, 150>;
 
   lpa_t::storage_type s;
   lpa_t lpa{s};
@@ -66,7 +66,7 @@ TEST_F(test_linear_shared_allocator, list_allocation_basic) {
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 450>;
+  using lpa_t = imem::linear_shared_allocator<alloc_t, 450>;
 
   lpa_t::storage_type s;
   lpa_t lpa{s};
@@ -86,7 +86,7 @@ TEST_F(test_linear_shared_allocator, vector_allocation_misalignment) {
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 450>;
+  using lpa_t = imem::linear_shared_allocator<alloc_t, 450>;
 
   lpa_t::storage_type s;
 
@@ -119,7 +119,7 @@ TEST_F(test_linear_shared_allocator,
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 300>;
+  using lpa_t = imem::linear_shared_allocator<alloc_t, 300>;
 
   lpa_t::storage_type s;
   lpa_t lpa{s};
@@ -148,7 +148,7 @@ TEST_F(test_linear_shared_allocator,
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 300>;
+  using lpa_t = imem::linear_shared_allocator<alloc_t, 300>;
 
   lpa_t::storage_type s;
   lpa_t lpa1{s};
@@ -178,7 +178,7 @@ TEST_F(test_linear_shared_allocator,
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 300>;
+  using lpa_t = imem::linear_shared_allocator<alloc_t, 300>;
 
   lpa_t::storage_type s;
   lpa_t lpa1{s};
@@ -209,8 +209,8 @@ TEST_F(test_linear_shared_allocator,
 
   //std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  //using lpa1_t = imem::linear_private_allocator<alloc_t, 300>;
-  //using lpa2_t = imem::linear_private_allocator<alloc_t, 400>;
+  //using lpa1_t = imem::linear_shared_allocator<alloc_t, 300>;
+  //using lpa2_t = imem::linear_shared_allocator<alloc_t, 400>;
 
   //lpa1_t::storage_type s1;
   //lpa1_t lpa1{s1};
