@@ -11,6 +11,8 @@
 
 #include "icsa/memory/private_memory_arena.hpp"
 
+#include "icsa/memory/shared_memory_arena.hpp"
+
 #include <cstddef>
 // using std::size_t
 
@@ -29,6 +31,23 @@ bool operator==(const linear_private_allocator<T, N> &lhs,
 template <typename T, typename U, std::size_t N>
 bool operator!=(const linear_private_allocator<T, N> &lhs,
                 const linear_private_allocator<U, N> &rhs) {
+  return !(lhs == rhs);
+}
+
+//
+
+template <typename T, std::size_t N>
+using linear_shared_allocator = allocator<T, shared_memory_arena<N>>;
+
+template <typename T, typename U, std::size_t N>
+bool operator==(const linear_shared_allocator<T, N> &lhs,
+                const linear_shared_allocator<U, N> &rhs) {
+  return false;
+}
+
+template <typename T, typename U, std::size_t N>
+bool operator!=(const linear_shared_allocator<T, N> &lhs,
+                const linear_shared_allocator<U, N> &rhs) {
   return !(lhs == rhs);
 }
 

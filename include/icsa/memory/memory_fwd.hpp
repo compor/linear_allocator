@@ -26,6 +26,9 @@ struct allocator;
 template <std::size_t N>
 struct private_memory_arena;
 
+template <std::size_t N>
+struct shared_memory_arena;
+
 }  // namespace memory end
 }  // namespace icsa end
 

@@ -13,7 +13,12 @@
 // using std::size_t
 
 namespace icsa {
-namespace memory {}  // namespace memory end
+namespace memory {
+
+template <std::size_t N>
+struct shared_memory_arena : public detail::shared_memory_arena_impl<N> {};
+
+}  // namespace memory end
 }  // namespace icsa end
 
 #endif  // header
