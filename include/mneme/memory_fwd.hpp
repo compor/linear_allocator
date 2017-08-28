@@ -2,14 +2,13 @@
 //
 //
 
-#ifndef ICSA_MEMORY_MEMORY_FWD_HPP
-#define ICSA_MEMORY_MEMORY_FWD_HPP
+#ifndef MNEME_MEMORY_FWD_HPP
+#define MNEME_MEMORY_FWD_HPP
 
 #include <cstddef>
 // using std::size_t
 
-namespace icsa {
-namespace memory {
+namespace mneme {
 
 template <typename T>
 struct allocation_traits;
@@ -29,7 +28,6 @@ struct private_memory_arena;
 template <std::size_t N>
 struct shared_memory_arena;
 
-}  // namespace memory end
-}  // namespace icsa end
+}  // namespace mneme end
 
 #endif  // header

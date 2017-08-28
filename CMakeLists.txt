@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 3.2.0)
 
-set(PRJ_NAME "icsa_memory")
+set(PRJ_NAME "mneme")
 string(TOUPPER ${PRJ_NAME} PRJ_NAME_UPPER)
 string(TOLOWER ${PRJ_NAME} PRJ_NAME_LOWER)
 
@@ -72,8 +72,8 @@ set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
   ${PRJ_BINARY_INCLUDE_DIR})
 
 configure_file(
-  "${PRJ_INCLUDE_DIR}/icsa/memory/${PRJ_CONFIG_HEADER_FILE}.in"
-  "${PRJ_BINARY_INCLUDE_DIR}/icsa/memory/${PRJ_CONFIG_HEADER_FILE}")
+  "${PRJ_INCLUDE_DIR}/mneme/${PRJ_CONFIG_HEADER_FILE}.in"
+  "${PRJ_BINARY_INCLUDE_DIR}/mneme/${PRJ_CONFIG_HEADER_FILE}")
 
 configure_file(
   "${CMAKE_CURRENT_SOURCE_DIR}/share/cmake/${PRJ_CMAKE_CONFIG_FILE}.in"

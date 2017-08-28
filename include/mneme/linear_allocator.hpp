@@ -2,22 +2,21 @@
 //
 //
 
-#ifndef ICSA_MEMORY_LINEAR_ALLOCATOR_HPP
-#define ICSA_MEMORY_LINEAR_ALLOCATOR_HPP
+#ifndef MNEME_LINEAR_ALLOCATOR_HPP
+#define MNEME_LINEAR_ALLOCATOR_HPP
 
-#include "icsa/memory/memory_fwd.hpp"
+#include "mneme/memory_fwd.hpp"
 
-#include "icsa/memory/allocator.hpp"
+#include "mneme/allocator.hpp"
 
-#include "icsa/memory/private_memory_arena.hpp"
+#include "mneme/private_memory_arena.hpp"
 
-#include "icsa/memory/shared_memory_arena.hpp"
+#include "mneme/shared_memory_arena.hpp"
 
 #include <cstddef>
 // using std::size_t
 
-namespace icsa {
-namespace memory {
+namespace mneme {
 
 template <typename T, std::size_t N>
 using linear_private_allocator = allocator<T, private_memory_arena<N>>;
@@ -51,7 +50,6 @@ bool operator!=(const linear_shared_allocator<T, N> &lhs,
   return !(lhs == rhs);
 }
 
-}  // namespace memory end
-}  // namespace icsa end
+}  // namespace mneme end
 
 #endif  // header

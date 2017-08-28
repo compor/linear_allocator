@@ -2,17 +2,16 @@
 //
 //
 
-#ifndef ICSA_MEMORY_PROPAGATION_TRAITS_HPP
-#define ICSA_MEMORY_PROPAGATION_TRAITS_HPP
+#ifndef MNEME_PROPAGATION_TRAITS_HPP
+#define MNEME_PROPAGATION_TRAITS_HPP
 
-#include "icsa/memory/memory_fwd.hpp"
+#include "mneme/memory_fwd.hpp"
 
 #include <type_traits>
 // using std::true_type
 // using std::false_type
 
-namespace icsa {
-namespace memory {
+namespace mneme {
 
 template <typename T>
 struct propagation_traits {
@@ -21,7 +20,6 @@ struct propagation_traits {
   using propagate_on_container_swap = std::false_type;
 };
 
-}  // namespace memory end
-}  // namespace icsa end
+}  // namespace mneme end
 
 #endif  // header

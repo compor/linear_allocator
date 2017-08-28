@@ -1,6 +1,6 @@
 
-#ifndef ICSA_MEMORY_CONFIG_HPP
-#define ICSA_MEMORY_CONFIG_HPP
+#ifndef MNEME_CONFIG_HPP
+#define MNEME_CONFIG_HPP
 
 // clang-format off
 

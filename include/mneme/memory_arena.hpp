@@ -2,16 +2,15 @@
 //
 //
 
-#ifndef ICSA_MEMORY_ARENA_HPP
-#define ICSA_MEMORY_ARENA_HPP
+#ifndef MNEME_ARENA_HPP
+#define MNEME_ARENA_HPP
 
-#include "icsa/memory/memory_fwd.hpp"
+#include "mneme/memory_fwd.hpp"
 
 #include <cstddef>
 // using std::size_t
 
-namespace icsa {
-namespace memory {
+namespace mneme {
 
 template <std::size_t N>
 struct memory_arena {
@@ -23,7 +22,6 @@ struct memory_arena {
   std::size_t m_offset;
 };
 
-}  // namespace memory end
-}  // namespace icsa end
+}  // namespace mneme end
 
 #endif  // header

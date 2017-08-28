@@ -2,16 +2,16 @@
 //
 //
 
-#ifndef ICSA_MEMORY_ALLOCATOR_HPP
-#define ICSA_MEMORY_ALLOCATOR_HPP
+#ifndef MNEME_ALLOCATOR_HPP
+#define MNEME_ALLOCATOR_HPP
 
-#include "icsa/memory/memory_fwd.hpp"
+#include "mneme/memory_fwd.hpp"
 
-#include "icsa/memory/propagation_traits.hpp"
-// using icsa::memory::propagation_traits
+#include "mneme/propagation_traits.hpp"
+// using mneme::propagation_traits
 
-#include "icsa/memory/allocation_traits.hpp"
-// using icsa::memory::allocation_traits
+#include "mneme/allocation_traits.hpp"
+// using mneme::allocation_traits
 
 #include <memory>
 // using std::pointer_traits
@@ -22,8 +22,7 @@
 #include <cstddef>
 // using std::size_t
 
-namespace icsa {
-namespace memory {
+namespace mneme {
 
 template <typename T, typename Storage>
 struct allocator {
@@ -97,7 +96,6 @@ bool operator!=(const allocator<T, StorageT> &lhs, const Other &rhs) {
   return !(lhs == rhs);
 }
 
-}  // namespace memory end
-}  // namespace icsa end
+}  // namespace mneme end
 
 #endif  // header

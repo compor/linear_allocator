@@ -2,10 +2,10 @@
 //
 //
 
-#ifndef ICSA_MEMORY_ALLOCATION_TRAITS
-#define ICSA_MEMORY_ALLOCATION_TRAITS
+#ifndef MNEME_ALLOCATION_TRAITS
+#define MNEME_ALLOCATION_TRAITS
 
-#include "icsa/memory/memory_fwd.hpp"
+#include "mneme/memory_fwd.hpp"
 
 #include <cstddef>
 // using std::size_t
@@ -13,8 +13,7 @@
 #include <type_traits>
 // using std::false_type
 
-namespace icsa {
-namespace memory {
+namespace mneme {
 
 template <typename T>
 struct allocation_traits {
@@ -27,7 +26,6 @@ struct allocation_traits {
   static void deallocate(T &s, void *p, size_type n) { s.deallocate(p, n); }
 };
 
-}  // namespace memory end
-}  // namespace icsa end
+}  // namespace mneme end
 
 #endif  // header

@@ -25,9 +25,7 @@
 #include <cstdint>
 // using std::uintptr_t
 
-#include "icsa/memory/linear_allocator.hpp"
-
-namespace imem = icsa::memory;
+#include "mneme/linear_allocator.hpp"
 
 namespace {
 
@@ -47,7 +45,7 @@ TEST_F(test_linear_private_allocator, vector_allocation_basic) {
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 150>;
+  using lpa_t = mneme::linear_private_allocator<alloc_t, 150>;
 
   lpa_t::storage_type s;
   lpa_t lpa{s};
@@ -66,7 +64,7 @@ TEST_F(test_linear_private_allocator, list_allocation_basic) {
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 450>;
+  using lpa_t = mneme::linear_private_allocator<alloc_t, 450>;
 
   lpa_t::storage_type s;
   lpa_t lpa{s};
@@ -86,12 +84,12 @@ TEST_F(test_linear_private_allocator, vector_allocation_misalignment) {
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 450>;
+  using lpa_t = mneme::linear_private_allocator<alloc_t, 450>;
 
   lpa_t::storage_type s;
 
   auto *sptr =
-      imem::allocation_traits<decltype(s)>::allocate(s, 1, alignof(char));
+      mneme::allocation_traits<decltype(s)>::allocate(s, 1, alignof(char));
   auto *ptr = reinterpret_cast<char *>(sptr) + 1;
   auto ptrval = reinterpret_cast<std::uintptr_t>(ptr);
   auto mod1 = ptrval % alignof(alloc_t);
@@ -105,7 +103,7 @@ TEST_F(test_linear_private_allocator, vector_allocation_misalignment) {
   auto ptrval2 = reinterpret_cast<std::uintptr_t>(p2);
   auto mod2 = ptrval2 % alignof(alloc_t);
 
-  imem::allocation_traits<decltype(s)>::deallocate(s, sptr, 1);
+  mneme::allocation_traits<decltype(s)>::deallocate(s, sptr, 1);
 
   EXPECT_TRUE(mod1 && !mod2);
 }
@@ -119,7 +117,7 @@ TEST_F(test_linear_private_allocator,
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 300>;
+  using lpa_t = mneme::linear_private_allocator<alloc_t, 300>;
 
   lpa_t::storage_type s;
   lpa_t lpa{s};
@@ -148,7 +146,7 @@ TEST_F(test_linear_private_allocator,
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 300>;
+  using lpa_t = mneme::linear_private_allocator<alloc_t, 300>;
 
   lpa_t::storage_type s;
   lpa_t lpa1{s};
@@ -178,7 +176,7 @@ TEST_F(test_linear_private_allocator,
 
   std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  using lpa_t = imem::linear_private_allocator<alloc_t, 300>;
+  using lpa_t = mneme::linear_private_allocator<alloc_t, 300>;
 
   lpa_t::storage_type s;
   lpa_t lpa1{s};
@@ -209,8 +207,8 @@ TEST_F(test_linear_private_allocator,
 
   //std::array<int, 9> src{3, 99, 1001, 5, 32, 973, 973, 32, 5};
 
-  //using lpa1_t = imem::linear_private_allocator<alloc_t, 300>;
-  //using lpa2_t = imem::linear_private_allocator<alloc_t, 400>;
+  //using lpa1_t = mneme::linear_private_allocator<alloc_t, 300>;
+  //using lpa2_t = mneme::linear_private_allocator<alloc_t, 400>;
 
   //lpa1_t::storage_type s1;
   //lpa1_t lpa1{s1};
