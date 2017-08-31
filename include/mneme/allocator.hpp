@@ -29,22 +29,22 @@ struct allocator {
   template <typename U, typename S>
   friend struct allocator;
 
-  using allocation_traits = allocation_traits<Storage>;
-  using ptr_traits = std::pointer_traits<T *>;
-  using prop_traits = propagation_traits<Storage>;
+  using allocation_traits = mneme::allocation_traits<Storage>;
+  using pointer_traits = std::pointer_traits<T *>;
+  using propagation_traits = mneme::propagation_traits<Storage>;
 
   using value_type = T;
-  using size_type =
-      typename std::make_unsigned<typename ptr_traits::difference_type>::type;
-  using pointer = typename ptr_traits::pointer;
+  using size_type = typename std::make_unsigned<
+      typename pointer_traits::difference_type>::type;
+  using pointer = typename pointer_traits::pointer;
   using storage_type = Storage;
 
   using propagate_on_container_copy_assignment =
-      typename prop_traits::propagate_on_container_copy_assignment;
+      typename propagation_traits::propagate_on_container_copy_assignment;
   using propagate_on_container_move_assignment =
-      typename prop_traits::propagate_on_container_move_assignment;
+      typename propagation_traits::propagate_on_container_move_assignment;
   using propagate_on_container_swap =
-      typename prop_traits::propagate_on_container_swap;
+      typename propagation_traits::propagate_on_container_swap;
 
   allocator(Storage &s) noexcept : storage(s) {}
 
