@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
-export LD_LIBRARY_PATH=$(llvm-config --libdir) 
-
+if [[ ! $TRAVIS == "true" ]]; then
 cmake --build . --target @PRJ_UNIT_TESTS_TARGET@ -- -j$(nproc)
-RC=$?
-
-[ "${RC}" -ne 0 ] && exit ${RC}
+  [[ $? -ne 0 ]] && exit $?
+fi
 
 pushd ./unittests/
 
 @PRJ_UNIT_TEST_BINS@
 
+rc=$?
+
 popd
+
+if [[ $rc == 0 ]]; then 
+  true
+else 
+  false 
+fi
 
