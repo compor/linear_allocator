@@ -129,8 +129,8 @@ TEST_F(test_linear_private_allocator,
 
   auto cmp1 = std::equal(src.begin(), src.end(), dst1.begin());
   auto cmp2 = std::equal(src.begin(), src.end(), dst2.begin());
-  auto cmp3 = std::equal(src.begin(), src.end(), dst2.begin(), dst2.end(),
-                         [](const auto &e1, const auto &e2) {
+  auto cmp3 = std::equal(src.begin(), src.end(), dst2.begin(),
+                         [](const alloc_t &e1, const alloc_t &e2) {
                            return std::addressof(e1) != std::addressof(e2);
                          });
 
