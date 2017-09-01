@@ -12,8 +12,10 @@ addons:
       - llvm-toolchain-precise-3.7
     packages:
       - tree
-      - gcc-4.9
-      - g++-4.9
+      - gcc-5
+      - g++-5
+      - gcc-6
+      - g++-6
       - llvm-3.7
       - llvm-3.7-tools
       - clang-3.7
@@ -43,7 +45,11 @@ matrix:
       compiler: clang
 
     - os: linux 
-      env: BUILD_TYPE=DEBUG PRJ_SKIP_TESTS=OFF PRJ_DEBUG=ON GCC_VERSION=4.9
+      env: BUILD_TYPE=DEBUG PRJ_SKIP_TESTS=OFF PRJ_DEBUG=ON GCC_VERSION=5
+      compiler: gcc
+
+    - os: linux
+      env: BUILD_TYPE=DEBUG PRJ_SKIP_TESTS=OFF PRJ_DEBUG=ON GCC_VERSION=6
       compiler: gcc
 
 install:
