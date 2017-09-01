@@ -30,13 +30,30 @@ struct allocator {
   friend struct allocator;
 
   using allocation_traits = mneme::allocation_traits<Storage>;
-  using pointer_traits = std::pointer_traits<T *>;
+  using pointer_t = T *;
+  using pointer_traits = std::pointer_traits<pointer_t>;
   using propagation_traits = mneme::propagation_traits<Storage>;
 
   using value_type = T;
+
+  // these are required because they are used in later definitions for which we
+  // do not rely on std::allocator_traits defaults
+  using pointer = typename pointer_traits::pointer;
   using size_type = typename std::make_unsigned<
       typename pointer_traits::difference_type>::type;
-  using pointer = typename pointer_traits::pointer;
+
+#if __GNUC__ < 6
+  using const_pointer =
+      typename pointer_traits::template rebind<const value_type>;
+  using reference = T &;
+  using const_reference = const T &;
+
+  template <typename U>
+  struct rebind {
+    typedef allocator<U, Storage> other;
+  };
+#endif  // __GNUC__ < 6
+
   using storage_type = Storage;
 
   using propagate_on_container_copy_assignment =
