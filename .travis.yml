@@ -11,7 +11,7 @@ addons:
       - ubuntu-toolchain-r-test
       - llvm-toolchain-precise
       - llvm-toolchain-precise-3.7
-      - llvm-toolchain-precise-3.8
+      - llvm-toolchain-trusty-3.9
     packages:
       - tree
       - gcc-5
@@ -22,10 +22,10 @@ addons:
       - llvm-3.7-tools
       - clang-3.7
       - clang-format-3.7
-      - llvm-3.8
-      - llvm-3.8-tools
-      - clang-3.8
-      - clang-format-3.8
+      - llvm-3.9
+      - llvm-3.9-tools
+      - clang-3.9
+      - clang-format-3.9
       - libc++-dev
       - libc++abi-dev
 
@@ -51,7 +51,7 @@ matrix:
       compiler: clang
 
     - os: linux
-      env: BUILD_TYPE=DEBUG PRJ_SKIP_TESTS=OFF PRJ_DEBUG=ON LLVM_VERSION=3.8
+      env: BUILD_TYPE=DEBUG PRJ_SKIP_TESTS=OFF PRJ_DEBUG=ON LLVM_VERSION=3.9
       compiler: clang
 
     - os: linux 
