@@ -13,6 +13,8 @@
 #include "mneme/allocation_traits.hpp"
 // using mneme::allocation_traits
 
+#include <ciso646>
+
 #include <memory>
 // using std::pointer_traits
 
@@ -31,13 +33,39 @@
 
 namespace mneme {
 
+#if __LIBCPP_VERSION < 3800
+namespace detail {
+
+template <typename T>
+using void_t = void;
+
+template <typename T, typename = void>
+struct pointer_type {
+  using type = T *;
+};
+
+template <typename T>
+struct pointer_type<T, void_t<typename T::pointer>> {
+  using type = typename T::pointer;
+};
+
+}  // namespace detail end
+#endif  // __LIBCPP_VERSION < 3800
+
 template <typename T, typename Storage>
 struct allocator {
+ protected:
+#if __LIBCPP_VERSION < 3800
+  using pointer_t = T *;
+#else
+  using pointer_t = typename detail::pointer_type<T>::type;
+#endif  // __LIBCPP_VERSION < 3800
+
+ public:
   template <typename U, typename S>
   friend struct allocator;
 
   using allocation_traits = mneme::allocation_traits<Storage>;
-  using pointer_t = T *;
   using pointer_traits = std::pointer_traits<pointer_t>;
   using propagation_traits = mneme::propagation_traits<Storage>;
 
