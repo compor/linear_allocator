@@ -157,3 +157,8 @@ script:
   - if [[ $PRJ_SKIP_TESTS == "OFF" ]]; then ./run_unit_tests.sh; fi
   - cmake --build . --target install
 
+notifications:
+  slack:
+    on_success: change
+    on_failure: change
+
