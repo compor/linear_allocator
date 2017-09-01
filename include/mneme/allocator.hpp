@@ -18,6 +18,13 @@
 
 #include <type_traits>
 // using std::make_unsigned
+// using std::true_type
+// using std::false_type
+
+#if __GNUC__ < 6
+#include <utility>
+// using std::forward
+#endif  // __GNUC__ < 6
 
 #include <cstddef>
 // using std::size_t
@@ -82,6 +89,18 @@ struct allocator {
   void deallocate(pointer p, size_type n) noexcept {
     allocation_traits::deallocate(storage, p, n);
   }
+
+#if __GNUC__ < 6
+  template <typename U, typename... Args>
+  void construct(U *p, Args &&... args) {
+    ::new (static_cast<void *>(p)) U(std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  void destroy(U *p) {
+    p->~U();
+  }
+#endif  // __GNUC__ < 6
 
  protected:
   storage_type &storage;
