@@ -19,9 +19,13 @@ addons:
       - llvm-3.7
       - llvm-3.7-tools
       - clang-3.7
+      - clang-format-3.7
+      - llvm-3.8
+      - llvm-3.8-tools
+      - clang-3.8
+      - clang-format-3.8
       - libc++-dev
       - libc++abi-dev
-      - clang-format-3.7
 
 env:
   global:
@@ -42,6 +46,10 @@ matrix:
   include:
     - os: linux 
       env: BUILD_TYPE=DEBUG PRJ_SKIP_TESTS=OFF PRJ_DEBUG=ON LLVM_VERSION=3.7
+      compiler: clang
+
+    - os: linux
+      env: BUILD_TYPE=DEBUG PRJ_SKIP_TESTS=OFF PRJ_DEBUG=ON LLVM_VERSION=3.8
       compiler: clang
 
     - os: linux 
